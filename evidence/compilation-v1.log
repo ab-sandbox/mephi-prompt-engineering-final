@@ -1,0 +1,8 @@
+$ javac --release 17 -encoding UTF-8 -d out src/PasswordValidator.java
+Compilation: PASS
+
+Source SHA-256:
+b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8  src/PasswordValidator.java
+
+Source lines (excluding comments and blank lines):
+73
