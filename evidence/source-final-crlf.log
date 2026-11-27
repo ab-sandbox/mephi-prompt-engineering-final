@@ -1,0 +1,18 @@
+=== Final source verification ===
+
+b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8  src/PasswordValidator.java
+
+Java version:
+openjdk version "17.0.21.1" 2026-11-17
+OpenJDK Runtime Environment (build 17.0.21.1+2-1-24.04.1-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.21.1+2-1-24.04.1-Ubuntu, mixed mode, sharing)
+javac 17.0.21.1
+
+Non-empty lines excluding comments:
+73
+
+Imports:
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;

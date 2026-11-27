@@ -86,4 +86,4 @@ evidence/source-final.log  - технические характеристики
 Исходник: src/PasswordValidator.java.
 
 SHA-256:
-b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8
+2b74d203faafeea23ded847063affab863e7f2227fcf4521c6e5ea8c717e7725
