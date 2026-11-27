@@ -1,0 +1,206 @@
+=== Password Validator Test Runner ===
+
+Source: tests/defects/D001/PasswordValidator.java
+e81e1e4d8987b0051ae99485f362379ce89eded4efcabedfe77927a71febeeac  tests/defects/D001/PasswordValidator.java
+
+openjdk version "17.0.21.1" 2026-11-17
+OpenJDK Runtime Environment (build 17.0.21.1+2-1-24.04.1-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.21.1+2-1-24.04.1-Ubuntu, mixed mode, sharing)
+javac 17.0.21.1
+
+Compilation:
+javac --release 17 -encoding UTF-8 -d <classes> tests/defects/D001/PasswordValidator.java
+Compilation: PASS
+
+--- T01: Minimum valid length ---
+Input:    $'Passw0rd\n'
+Expected: $'OK\n'
+Actual:   LEN$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.192067120 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.233069764 +0400
+@@ -1 +1 @@
+-OK
++LEN
+
+--- T02: Maximum valid length ---
+Input:    $'Abcdefgh12345678\n'
+Expected: $'OK\n'
+Actual:   OK$
+Exit code: 0
+Result: PASS
+
+--- T03: Length below minimum ---
+Input:    $'Abc1234\n'
+Expected: $'LEN\n'
+Actual:   LEN$
+Exit code: 0
+Result: PASS
+
+--- T04: Length above maximum ---
+Input:    $'Abcdefgh123456789\n'
+Expected: $'LEN\n'
+Actual:   LEN$
+Exit code: 0
+Result: PASS
+
+--- T05: Missing uppercase letter ---
+Input:    $'password1\n'
+Expected: $'UPPER\n'
+Actual:   UPPER$
+Exit code: 0
+Result: PASS
+
+--- T06: Missing digit ---
+Input:    $'Password\n'
+Expected: $'DIGIT\n'
+Actual:   LEN$
+DIGIT$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.358077825 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.385079567 +0400
+@@ -1 +1,2 @@
++LEN
+ DIGIT
+
+--- T07: Space inside password ---
+Input:    $'Pass word1\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T08: Cyrillic characters ---
+Input:    $'Пароль123\n'
+Expected: $'UPPER\nCHAR\n'
+Actual:   UPPER$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T09: Multiple violations ---
+Input:    $'abc\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T10: Missing digit and invalid character ---
+Input:    $'Password!\n'
+Expected: $'DIGIT\nCHAR\n'
+Actual:   DIGIT$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T11: Empty first line ---
+Input:    $'\nPassw0rd\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T12: EOF before first line ---
+Input:    ''
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T13: Single empty line ---
+Input:    $'\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T14: Tab inside password ---
+Input:    $'Pass\tw0rd\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T15: Ignore second line ---
+Input:    $'Passw0rd\nInvalid!\n'
+Expected: $'OK\n'
+Actual:   LEN$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.606093819 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.632095496 +0400
+@@ -1 +1 @@
+-OK
++LEN
+
+--- T16: UTF-16 length boundary ---
+Input:    $'Abc123😀\n'
+Expected: $'CHAR\n'
+Actual:   LEN$
+CHAR$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.638095883 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.662097430 +0400
+@@ -1 +1,2 @@
++LEN
+ CHAR
+
+--- T17: Missing uppercase and digit ---
+Input:    $'abcdefgh\n'
+Expected: $'UPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.669097882 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.704100139 +0400
+@@ -1,2 +1,3 @@
++LEN
+ UPPER
+ DIGIT
+
+--- T18: Maximum length with invalid character ---
+Input:    $'Abcdefgh1234567!\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T19: All four violations ---
+Input:    $'ab!\n'
+Expected: $'LEN\nUPPER\nDIGIT\nCHAR\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T20: Digit first and uppercase last ---
+Input:    $'1bcdefgH\n'
+Expected: $'OK\n'
+Actual:   LEN$
+Exit code: 0
+Result: FAIL
+--- /tmp/tmp.iPgLlQFuIv/expected.txt	2026-11-27 08:59:13.782105169 +0400
++++ /tmp/tmp.iPgLlQFuIv/actual.txt	2026-11-27 08:59:13.813107168 +0400
+@@ -1 +1 @@
+-OK
++LEN
+
+=== Test Summary ===
+Total:  20
+Passed: 14
+Failed: 6
