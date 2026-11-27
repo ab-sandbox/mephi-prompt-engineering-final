@@ -1,0 +1,172 @@
+=== Password Validator Test Runner ===
+
+Source: tests/defects/D001/fixed/PasswordValidator.java
+b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8  tests/defects/D001/fixed/PasswordValidator.java
+
+openjdk version "17.0.21.1" 2026-11-17
+OpenJDK Runtime Environment (build 17.0.21.1+2-1-24.04.1-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.21.1+2-1-24.04.1-Ubuntu, mixed mode, sharing)
+javac 17.0.21.1
+
+Compilation:
+javac --release 17 -encoding UTF-8 -d <classes> tests/defects/D001/fixed/PasswordValidator.java
+Compilation: PASS
+
+--- T01: Minimum valid length ---
+Input:    $'Passw0rd\n'
+Expected: $'OK\n'
+Actual:   OK$
+Exit code: 0
+Result: PASS
+
+--- T02: Maximum valid length ---
+Input:    $'Abcdefgh12345678\n'
+Expected: $'OK\n'
+Actual:   OK$
+Exit code: 0
+Result: PASS
+
+--- T03: Length below minimum ---
+Input:    $'Abc1234\n'
+Expected: $'LEN\n'
+Actual:   LEN$
+Exit code: 0
+Result: PASS
+
+--- T04: Length above maximum ---
+Input:    $'Abcdefgh123456789\n'
+Expected: $'LEN\n'
+Actual:   LEN$
+Exit code: 0
+Result: PASS
+
+--- T05: Missing uppercase letter ---
+Input:    $'password1\n'
+Expected: $'UPPER\n'
+Actual:   UPPER$
+Exit code: 0
+Result: PASS
+
+--- T06: Missing digit ---
+Input:    $'Password\n'
+Expected: $'DIGIT\n'
+Actual:   DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T07: Space inside password ---
+Input:    $'Pass word1\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T08: Cyrillic characters ---
+Input:    $'Пароль123\n'
+Expected: $'UPPER\nCHAR\n'
+Actual:   UPPER$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T09: Multiple violations ---
+Input:    $'abc\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T10: Missing digit and invalid character ---
+Input:    $'Password!\n'
+Expected: $'DIGIT\nCHAR\n'
+Actual:   DIGIT$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T11: Empty first line ---
+Input:    $'\nPassw0rd\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T12: EOF before first line ---
+Input:    ''
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T13: Single empty line ---
+Input:    $'\n'
+Expected: $'LEN\nUPPER\nDIGIT\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T14: Tab inside password ---
+Input:    $'Pass\tw0rd\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T15: Ignore second line ---
+Input:    $'Passw0rd\nInvalid!\n'
+Expected: $'OK\n'
+Actual:   OK$
+Exit code: 0
+Result: PASS
+
+--- T16: UTF-16 length boundary ---
+Input:    $'Abc123😀\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T17: Missing uppercase and digit ---
+Input:    $'abcdefgh\n'
+Expected: $'UPPER\nDIGIT\n'
+Actual:   UPPER$
+DIGIT$
+Exit code: 0
+Result: PASS
+
+--- T18: Maximum length with invalid character ---
+Input:    $'Abcdefgh1234567!\n'
+Expected: $'CHAR\n'
+Actual:   CHAR$
+Exit code: 0
+Result: PASS
+
+--- T19: All four violations ---
+Input:    $'ab!\n'
+Expected: $'LEN\nUPPER\nDIGIT\nCHAR\n'
+Actual:   LEN$
+UPPER$
+DIGIT$
+CHAR$
+Exit code: 0
+Result: PASS
+
+--- T20: Digit first and uppercase last ---
+Input:    $'1bcdefgH\n'
+Expected: $'OK\n'
+Actual:   OK$
+Exit code: 0
+Result: PASS
+
+=== Test Summary ===
+Total:  20
+Passed: 20
+Failed: 0

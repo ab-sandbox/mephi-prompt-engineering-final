@@ -1,0 +1,3 @@
+b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8  src/PasswordValidator.java
+e81e1e4d8987b0051ae99485f362379ce89eded4efcabedfe77927a71febeeac  tests/defects/D001/PasswordValidator.java
+b21f65484e0daf238331a8f1fe61b075afe8a1fdbf47a21af698e40df40482c8  tests/defects/D001/fixed/PasswordValidator.java
